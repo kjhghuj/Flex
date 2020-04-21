@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex布局</title>
+</head>
+<style>
+    .btn{
+        margin-right:15px;
+        margin-bottom:10px;
+    }
+    #box{
+        display: flex;
+        /*
+            开启flex:
+                inline-flex:行内元素
+                flex:块级元素
+            开启后，当前元素交flex-container
+            子元素交flex-item
+        */
+        width:500px;
+        height: 350px;
+        border-radius:15px;
+        background-color: black;
+        overflow: hidden;
+        /*flex-direction:row;!*决定主轴的方向*!*/
+        /*justify-content:flex-start;*/
+        /*align-items: normal;*/
+        /*flex-wrap:wrap;*/
+        /*flex-flow:row wrap;*/
+        /*flex-flow:是flex-direction和flex-wrap的缩写属性;*/
+        /*align-content:决定了flex-items在交叉轴上的对齐方式，纵向的justify-content;*/
+    }
+    .btnBox{
+        padding:10px;
+    }
+    .item{
+        width:100px;
+        height: 100px;
+        text-align: center;
+        /*line-height: 100px;*/
+    }
+    .item1{
+        background-color: deeppink;
+        /*height: 50px;*/
+        /*font-size: 20px;*/
+    }
+    .item2{
+        background-color:skyblue;
+        /*height: 150px;*/
+    }
+    .item3{
+        background-color: greenyellow;
+        /*height: 80px;*/
+    }
+</style>
+<body>
+    <div class="btnBox">
+        <button class="btn" >切换flex和inline-flex</button>
+        <button class="btn" >切换flex和非flex</button>
+        <br>
+        <button class="btn" >切换flex-direction属性为row(默认)</button>
+        <button class="btn" >切换flex-direction属性为row-reverse</button>
+        <button class="btn" >切换flex-direction属性为column</button>
+        <button class="btn" >切换flex-direction属性为column-reverse</button>
+        <br>
+        <button class="btn">切换justify-content属性为flex-start）</button>
+        <button class="btn">切换justify-content属性为flex-end</button>
+        <button class="btn">切换justify-content属性为flex-center</button>
+        <button class="btn">切换justify-content属性为space-between（两端对齐，项目之间的间隔都相等）</button>
+        <button class="btn">切换justify-content属性为space-evenly（项目之间的间隔都相等）</button>
+        <button class="btn">切换justify-content属性为space-around（每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍）</button>
+        <br>
+        <button class="btn">切换align-items的normal属性（在弹性布局中，效果和stretch一样）</button>
+        <button class="btn">切换align-items的stretch（cross axis方向的size为auto时，自动拉伸填充值flex container）</button>
+        <button class="btn">切换align-items的flex-start(与cross start对齐)</button>
+        <button class="btn">切换align-items的flex-end(与cross end对齐)</button>
+        <button class="btn">切换align-items的center(居中对齐)</button>
+        <button class="btn">切换align-items的baseline(与内容文字的第一行下端基准线对齐)</button>
+        <br>
+        <button class="btn">切换flex-wrap的属性为nowrap(不换行自动缩小item的宽度)</button>
+        <button class="btn">切换flex-wrap的属性为wrap(宽度不够自动换行)</button>
+        <button class="btn">切换flex-wrap的属性为wrap-reverse(换行且反转)</button>
+    </div>
+    <div id="box">
+        <div class="item item1">item1</div>
+        <div class="item item2">item2</div>
+        <div class="item item3">item3</div>
+        <div class="item item1">item1</div>
+        <div class="item item2">item2</div>
+        <div class="item item3">item3</div>
+        <div class="item item1">item1</div>
+        <div class="item item2">item2</div>
+        <div class="item item3">item3</div>
+        <div class="item item1">item1</div>
+        <div class="item item2">item2</div>
+        <div class="item item3">item3</div>
+    </div>
+    <strong>这是一个strong元素</strong>
+    <script>
+        // 应用在flex-container上的属性有
+        // flex-flow,flex-direction,flex-warp,justify-content,align-items,align-content
+        // 应用在flex-items上的属性有：
+        // flex，flex-grow,flex-basis,flex-shrink,order,align-self
+        let box = document.querySelector('#box');
+        let arr = ['switchFlexBlockAndInlineBtn','switchFlexAndBlock','switchFlexDirectionRow','switchFlexDirectionRowReverse','switchFlexDirectionColumn',
+            'switchFlexDirectionColumnReverse','switchJustifyContentFlexStart','switchJustifyContentFlexEnd','switchJustifyContentCenter','switchJustifyContentSpaceBetween',
+            'switchJustifyContentSpaceEvenly','switchJustifyContentSpaceAround','switchAlignItemsNormal','switchAlignItemsStretch','switchAlignItemsFlexStart',
+            'switchAlignItemsFlexEnd','switchAlignItemsCenter','switchAlignItemsBaseline','switchFlexWrapNowrap','switchFlexWarpWrap','switchFlexWarpWrapReverse'
+        ]
+        let obj = {}
+        arr.forEach((btnName,index)=>{
+            obj[btnName] = document.querySelectorAll('button')[index]
+        })
+
+        obj.switchFlexBlockAndInlineBtn.onclick = function(){
+            if(getComputedStyle(box).display === 'inline-flex'){
+                box.style.display = 'flex';
+            }else{
+                box.style.display = 'inline-flex';
+            }
+        }
+        obj.switchFlexAndBlock.onclick = function () {
+            if(getComputedStyle(box).display === 'block'){
+                box.style.display = 'flex';
+            }else{
+                box.style.display = 'block';
+            }
+        }
+        obj.switchFlexDirectionRow.onclick = function(){
+            box.style.flexDirection = 'row';
+        }
+        obj.switchFlexDirectionRowReverse.onclick = function(){
+            box.style.flexDirection = 'row-reverse';
+        }
+        obj.switchFlexDirectionColumn.onclick = function(){
+            box.style.flexDirection = 'column';
+        }
+        obj.switchFlexDirectionColumnReverse.onclick = function(){
+            box.style.flexDirection = 'column-reverse';
+        }
+        obj.switchJustifyContentFlexStart.onclick = function(){
+            box.style.justifyContent = 'flex-start';
+        }
+        obj.switchJustifyContentFlexEnd.onclick = function(){
+            box.style.justifyContent = 'flex-end';
+        }
+        obj.switchJustifyContentCenter.onclick = function(){
+            box.style.justifyContent = 'center';
+        }
+        obj.switchJustifyContentSpaceBetween.onclick = function(){
+            box.style.justifyContent = 'space-between';
+        }
+        obj.switchJustifyContentSpaceAround.onclick = function(){
+            box.style.justifyContent = 'space-around';
+        }
+        obj.switchJustifyContentSpaceEvenly.onclick = function(){
+            box.style.justifyContent = 'space-evenly';
+        }
+        obj. switchAlignItemsNormal.onclick = function(){
+            box.style.alignItems = 'normal';
+        }
+        obj.switchAlignItemsStretch.onclick = function(){
+            box.style.alignItems = 'stretch';//stretch v. 拉伸
+        }
+        obj.switchAlignItemsFlexStart.onclick = function(){
+            box.style.alignItems = 'flex-start';
+        }
+        obj.switchAlignItemsFlexEnd.onclick = function(){
+            box.style.alignItems = 'flex-end';
+        }
+        obj.switchAlignItemsCenter.onclick = function(){
+            box.style.alignItems = 'center';
+        }
+        obj.switchAlignItemsBaseline.onclick = function(){
+            box.style.alignItems = 'baseline';
+        }
+        obj.switchFlexWrapNowrap.onclick = function(){
+            box.style.flexWrap = 'nowrap';
+        }
+        obj.switchFlexWarpWrap.onclick = function(){
+            box.style.flexWrap = 'wrap';
+        }
+        obj.switchFlexWarpWrapReverse.onclick = function(){
+            box.style.flexWrap = 'wrap-reverse';
+        }
+
+
+        // let switchFlexBlockAndInlineBtn = document.querySelectorAll('button')[0];
+        // let switchFlexAndBlock = document.querySelectorAll('button')[1];
+        // let switchFlexDirectionRow = document.querySelectorAll('button')[2];
+        // let switchFlexDirectionRowReverse = document.querySelectorAll('button')[3];
+        // let switchFlexDirectionColumn = document.querySelectorAll('button')[4];
+        // let switchFlexDirectionColumnReverse = document.querySelectorAll('button')[5];
+        // let switchJustifyContentFlexStart = document.querySelectorAll('button')[6];
+        // let switchJustifyContentFlexEnd = document.querySelectorAll('button')[7];
+        // let switchJustifyContentCenter = document.querySelectorAll('button')[8];
+        // let switchJustifyContentSpaceBetween = document.querySelectorAll('button')[9];
+        // let switchJustifyContentSpaceEvenly = document.querySelectorAll('button')[10];
+        // let switchJustifyContentSpaceAround = document.querySelectorAll('button')[11];
+        // let switchAlignItemsNormal = document.querySelectorAll('button')[12];
+        // let switchAlignItemsStretch = document.querySelectorAll('button')[13];
+        // let switchAlignItemsFlexStart = document.querySelectorAll('button')[14];
+        // let switchAlignItemsFlexEnd = document.querySelectorAll('button')[15];
+        // let switchAlignItemsCenter = document.querySelectorAll('button')[16];
+        // let switchAlignItemsBaseline = document.querySelectorAll('button')[17];
+    </script>
+</body>
+</html>
